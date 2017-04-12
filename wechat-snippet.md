@@ -28,4 +28,20 @@
 			e.printStackTrace();
 		}
 	}
+	/*
+	* 通过上个页面跳转下面请求中，可以通过request.getParameter("code")获取code值。
+	*/
+	@RequestMapping(value="/myPage.html",method=RequestMethod.GET)
+	public ModelAndView toMyPage(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("/mypage/mypage");
+		//通过request.getParameter("code")拿到code值。
+		String code = request.getParameter("code");
+		log.info("获取的code值为>>" + code);
+		if(null == code) {
+			return null;
+		}
+		....
+		mv.addObject("code", code);
+		return mv;
+	}
 ```

@@ -130,7 +130,6 @@
 ---
 * **微信公众号平台服务器校验配置**<br>
 在微信公众号开发或者微信开放平台操作，都要通过管理员对应用部署所在的服务器进行通讯校验，微信官方会要求我们上传一个校验文件到服务器，还会通过一些特殊字段的组合进行加密签名校验。<br>
-<br>
 ```java
 Controller("weinxinCheckToken")
 @RequestMapping("/chenkToken")
@@ -231,7 +230,7 @@ public class WeinxinCheckToken {
 因为调用微信官方的接口，会需要全局的接口调用凭证token,每两个小时就会过期，所以可以通过java的quartz定时器定时刷新。下面是调用获取微信全局token的请求方法。<br>
 <br>
 ```
-  //获取微信接口调用的全局token
+       //获取微信接口调用的全局token
 	private void getAccessToken() {
 		StringBuffer url = new StringBuffer();
 		url.append("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential")
@@ -279,7 +278,6 @@ public class WeinxinCheckToken {
 在三方平台，总要获取微信用户的基本信息，下面这个方法，是在基于得到全局token和已关注微信公众号的用户的openId基础下，获取微信用户的基本信息:在得到微信个人信息后，可以封装到自己平台定义的user用户对象中，以供后续使用。<br>
 <br>
 ```java
- <br>
 	//根据openId获取微信用户信息。
 	public User getWechatUserInfo(String openId) {
 		//获取保存在内存中的全局接口调用access_token
@@ -317,7 +315,7 @@ public class WeinxinCheckToken {
 						user.setPhotoUrl(String.valueOf(map.get("headimgurl")));
 						user.setWxOpenId(String.valueOf(mopenId));
 						user.setWxUnionId(String.valueOf(map.get("unionid")));
-						log.info("调用微信得到的用户信息:>>" + user.getNickName() + ",photo>>" + user.getPhotoUrl());
+	
 						return user;
 					}
 					log.info("第" + i + "次获取openId=" + openId + "的微信用户信息失败!!");

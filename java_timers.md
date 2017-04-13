@@ -17,6 +17,7 @@ quartz也是java开发中常用的定时器框架，使用也简单，在配置�
 
 ## 2.0 定义任务调度器调用的执行句柄类和执行方法
 ## 当时间到的时候，就调用该类的execute方法进行业务执行
+
 @Service("accessTokenService")
 public class AccessTokenService {
 	private Log log = LogFactory.getLog(AccessTokenService.class);
@@ -38,6 +39,7 @@ public class AccessTokenService {
 ===================================================
 ## 3.0 在spring主配置文件applicationContext.xml中进行调度器的配置
 ## applicationContext.xml
+
 <!-- 应用程序定时器配置 -->
 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 	<property name="triggers">

@@ -8,7 +8,6 @@
 	@RequestMapping(value="/routerToMyPage.html",method=RequestMethod.GET)
 	public void redirectToMyPage(HttpServletResponse response){
 //		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
-////		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=https://IP/xiangbideWXBG/my/myPage.html&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
 //		return "redirect:"+url;
 		StringBuffer sb = new StringBuffer(300);
 		sb.append("https://open.weixin.qq.com/connect/oauth2/authorize?appid=");
@@ -46,7 +45,6 @@
 	}
 ```
 ---
-<br>
 * 获取微信用户的openId<br>
 微信开发要获取openId,根据官方文档要获取openId,需要先获取code。所以下面使用了另外一种方法获取code，在code方法中请求转发方式，将请求发送到openId方法中，code和openId的获取都是分别通过springmvc进行请求分派。<br>
 1.0 第一步，获取code对应的请求处理:<br>

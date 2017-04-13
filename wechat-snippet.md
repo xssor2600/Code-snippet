@@ -228,9 +228,8 @@ public class WeinxinCheckToken {
 ---
 * **获取微信接口调用全局token凭证**<br>
 因为调用微信官方的接口，会需要全局的接口调用凭证token,每两个小时就会过期，所以可以通过java的quartz定时器定时刷新。下面是调用获取微信全局token的请求方法。<br>
-<br>
-```
-       //获取微信接口调用的全局token
+```java
+  //获取微信接口调用的全局token
 	private void getAccessToken() {
 		StringBuffer url = new StringBuffer();
 		url.append("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential")
@@ -276,7 +275,6 @@ public class WeinxinCheckToken {
 ---
 * **获取微信用户信息的请求方法**<br>
 在三方平台，总要获取微信用户的基本信息，下面这个方法，是在基于得到全局token和已关注微信公众号的用户的openId基础下，获取微信用户的基本信息:在得到微信个人信息后，可以封装到自己平台定义的user用户对象中，以供后续使用。<br>
-<br>
 ```java
 	//根据openId获取微信用户信息。
 	public User getWechatUserInfo(String openId) {

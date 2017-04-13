@@ -88,12 +88,6 @@
 <br>
 2.0 第二步，获取openId:<br>
 ```java
-	/**
-	 * openId:获取openID
-	 * 
-	 * @param request
-	 * @return
-	 */
 	@RequestMapping("/openId.html")
 	@ResponseBody
 	public void openId(HttpServletRequest request, HttpServletResponse response) {

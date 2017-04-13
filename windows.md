@@ -2,7 +2,7 @@
 ## windows系统安装<br>
 记录一些在安装系统时候，遇到的一些问题，如何通过windows命令行解决。<br>
 * windows无法安装到这个磁盘。选中的磁盘采用GPT分区形式<br>
-在将已安装着Linux系统的主分区或者其他系统的主分区，安装windows7系统的时候，就会遇到这种问题。因为要安装win7,主分区要求是MBR格式，不像win8,wind10的GPT格式。<br>
+在将已安装着Linux系统的主分区或者其他系统的主分区，安装windows7系统的时候，就会遇到这种问题。因为要安装win7,主分区要求是MBR格式，不像win8,wind10的GPT格式。可以参考 <u>[diskpart分区](https://jingyan.baidu.com/article/92255446efce49851748f463.html)</u><br>
 所以就通过以下命令将window主分区转换成MRB：<br>
 ```shell
 ## 1.0 在系统安装选择磁盘，界面，通过按键“shift+f10”，调出window的“cmd”命令符。

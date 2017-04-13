@@ -38,30 +38,28 @@ public class AccessTokenService {
 ===================================================
 ## 3.0 在spring主配置文件applicationContext.xml中进行调度器的配置
 ## applicationContext.xml
-	<!-- 应用程序定时器配置 -->
-	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="triggers">
-			<list>
-				<ref bean="accessTokenTrigger" />
-			</list>
-		</property>
-		<property name="autoStartup" value="true" />
-	</bean>
-
-	<!-- 配置定时器：每2小时刷任务调度执行一次 通过CronExpression进行对调度时间的设置 -->
-	<bean id="accessTokenTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-		<property name="jobDetail" ref="tokenJobDetail" />
-		<property name="cronExpression" value="0 0 */2 * * ?" /><!-- 每隔2个小时触发一次 -->
-	</bean>
-	<bean id="tokenJobDetail"
-		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-    	<!-- 容器中引用任务调度器句柄 -->
-		<property name="targetObject" ref="accessTokenService" />
-      <!-- 定义任务调度器句柄中具体的调用的处理方法名称 -->
-		<property name="targetMethod" value="execute" />
-		<property name="concurrent" value="false" />
-		<!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
-	</bean>
-
+<!-- 应用程序定时器配置 -->
+<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	<property name="triggers">
+		<list>
+			<ref bean="accessTokenTrigger" />
+		</list>
+	</property>
+	<property name="autoStartup" value="true" />
+</bean>
+<!-- 配置定时器：每2小时刷任务调度执行一次 通过CronExpression进行对调度时间的设置 -->
+<bean id="accessTokenTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	<property name="jobDetail" ref="tokenJobDetail" />
+	<property name="cronExpression" value="0 0 */2 * * ?" /><!-- 每隔2个小时触发一次 -->
+</bean>
+<bean id="tokenJobDetail"
+	class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <!-- 容器中引用任务调度器句柄 -->
+	<property name="targetObject" ref="accessTokenService" />
+    <!-- 定义任务调度器句柄中具体的调用的处理方法名称 -->
+	<property name="targetMethod" value="execute" />
+	<property name="concurrent" value="false" />
+	<!-- 是否允许任务并发执行。当值是false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+</bean>
 
 ```

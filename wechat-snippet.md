@@ -23,7 +23,7 @@
 			log.info("url>>" + sb.toString());
 			response.sendRedirect(sb.toString());
 		} catch (Exception e) {
-			log.error("重定向url编码失败：>>" + e.getMessage());
+			log.error("重定向url编码失败：>>" , e);
 			e.printStackTrace();
 		}
 	}
@@ -75,9 +75,10 @@
 		.append("&response_type=code&scope=snsapi_base&state=123#wechat_redirect");
 		
 		log.info("url:"+sb.toString());
-			//response.sendRedirect(stringBuffer.toString());
-			//通过请求转发形式，跳转到openId请求中
-			request.getRequestDispatcher(sb.toString()).forward(request, response);
+      //使用重定向来跳转得到code值
+			response.sendRedirect(stringBuffer.toString());
+			//通过请求转发形式，跳转到openId请求中，无效
+			//request.getRequestDispatcher(sb.toString()).forward(request, response);
 		} catch (UnsupportedEncodingException e) {
 			log.error("获取code值redirect_uri参数url编码失败：", e);
 		} catch (Exception e) {

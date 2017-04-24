@@ -21,7 +21,6 @@
     	}); 
 
 ```
-<br>
 * **根据两点经纬度坐标计算距离**<br>
 若是知道两点的经纬度坐标，那么在精确度要求不是很高的请情况下，可以使用百度javascript开发库中的BMapLibrary.GeoUtil工具类中的`#getDistance(point,point)`方法。详情：[类 BMapLib.GeoUtils](http://api.map.baidu.com/library/GeoUtils/1.2/docs/symbols/BMapLib.GeoUtils.html#.getDistance?qq-pf-to=pcqq.c2c)  [百度地图-JavaScript API v2.0](http://lbsyun.baidu.com/index.php?title=jspopular) <br>
 ```javascript

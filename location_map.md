@@ -6,7 +6,7 @@
 ```javascript
       ## ak=xxxxxx,xxxx代表申请的一个百度应用AK.
  $.ajax({  
-        url:"http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=23.11827687049967,113.40788939960324&output=json&pois=1&ak=xxxxxxxxxxxxx",  
+        url:"http://api.map.baidu.com/geocoder/v2/?callback=?&location=23.11827687049967,113.40788939960324&output=json&pois=1&ak=xxxxxxxxxxxxx",  
         dataType:'jsonp', 
         data:'',  
         callback:'callback',

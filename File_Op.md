@@ -38,8 +38,8 @@
 <br>
 2.0 **jersey上传文件**<br>
 在使用restful规范的api开发过程中，会使用jersey来进行请求路由控制。也总会遇到文件上传的需要，下面记录jersey上传文件的一些简单代码块。<br>
-(1)引入jersey文件上传需要的库包
-```xml
+(1) 引入jersey文件上传需要的库包:<br>
+```
 	<dependency>
 		    <groupId>org.glassfish.jersey.media</groupId>
 		    <artifactId>jersey-media-multipart</artifactId>
@@ -58,9 +58,9 @@
 			<version>1.3.1</version>
 		</dependency>
 ```
-(2)表单提交文件页面<br>
-注意添加表单提交类型:`enctype="multipart/form-data"`,重点的还有页面的每个标签的name字段的字符串值，在后台程序中就是根据这个name来获取form表单中的各项数据。
-```javascript
+(2)表单提交文件页面:<br>
+注意添加表单提交类型:`enctype="multipart/form-data"`,重点的还有页面的每个标签的name字段的字符串值，在后台程序中就是根据这个name来获取form表单中的各项数据。<br>
+```
 ## fileUpload.jsp
 	<form action="${pageContext.request.contextPath}/contentcreate/users/uploadphoto" method="post" enctype="multipart/form-data">
 		 文件 :<input type="file" name="PICTURESTREAM"/><br />

@@ -131,3 +131,132 @@ public Map<String, Object> uploadPicture(FormDataMultiPart formDataMultiPart, Ht
 		return retMap;
 	}
 ```
+
+* **springmvc上传文件**<br>
+记录使用springmvc框架对文件上传的几种方式的代码段。<br>
+(1) 添加文件上传的maven依赖库包<br>
+```xml
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+```
+(2)在springmvc.xml配置文件中添加文件解析支持<br>
+```java
+## springMVC-servlet.xml
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600" />
+		<property name="maxInMemorySize" value="4096" />
+		<property name="defaultEncoding" value="UTF-8"></property>
+	</bean>
+```
+(3)文件上传的jsp页面：包括后台处理三种不同文件上传方式<br>
+```javascript
+## fileupload.jsp
+<html>
+<head>
+<base href="<%=basePath%>">
+
+<title>多文件上传</title>
+
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+</head>
+
+<body>
+	<form name="serForm" action="${pageContext.request.contextPath}/upload/fileUpload.html" method="post" enctype="multipart/form-data">
+		<h1>采用流的方式上传文件</h1>
+		<input type="file" name="file">
+		 <input type="submit" value="upload" />
+	</form>
+
+	<form name="Form2" action="${pageContext.request.contextPath}/upload/fileUpload2.html" method="post" enctype="multipart/form-data">
+		<h1>采用multipart提供的file.transfer方法上传文件</h1>
+		<input type="file" name="file"> 
+		<input type="submit" value="upload" />
+	</form>
+
+	<form name="Form2" action="${pageContext.request.contextPath}/upload/springUpload.html" method="post" enctype="multipart/form-data">
+		<h1>使用spring mvc提供的类的方法上传文.件</h1>
+		<input type="file" name="file"> 
+		<input type="submit" value="upload" />
+	</form>
+
+</body>
+</html>
+```
+(4)后台服务器处理文件存储的代码块<br>
+主要是通过@RequestParam("file")将页面表单(enctype="mulitpart/form-data")中的`name="file"`的文件字节流封装到CommonsMultipartFile对象中，后续就能通过CommonsMultipartFile得到文件的字节流，拿到字节数据后，后续如何处理当然就要看自己的实际情况而定了。<br>
+```java
+@Controller
+@RequestMapping("/upload")
+public class FileUploadController {
+	
+	
+	@RequestMapping("/fileUpload.html")
+	public String fileUploadWithBytes(@RequestParam("file") CommonsMultipartFile file) throws IOException {
+	     System.out.println("fileName："+file.getOriginalFilename());
+	     
+	     OutputStream os = new FileOutputStream(new File("C:\\Users\\XianSky\\Desktop\\" + file.getOriginalFilename()));
+	     InputStream fis = file.getInputStream();
+	     
+	     byte[] bytes = new byte[fis.available()];
+	     while((fis.read(bytes) != -1)) {
+	    	 os.write(bytes);
+	     }
+	     os.flush();
+	     os.close();
+	     fis.close();
+	     return "success";
+	}
+	
+	@RequestMapping("/fileUpload2.html")
+	public String fileUploadByTransto(@RequestParam("file") CommonsMultipartFile file) throws Exception{
+	     System.out.println("fileName："+file.getOriginalFilename());
+		
+	     String path = "C:\\Users\\XianSky\\Desktop\\" + file.getOriginalFilename();
+	     File localFile = new File(path);
+	     
+	     //通过CommonsMultipartFile的方法直接将页面提交的文件字节流写入文件
+	     file.transferTo(localFile);
+		return "success";
+	}
+	
+	@RequestMapping("/springUpload.html")
+	public String srpingUpload(HttpServletRequest request) throws Exception {
+		
+	     //将当前servlet上下文给CommonsMultipartResolver处理
+	     CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getServletContext());
+	     //检查提交的表单form中是否含有enctype="multipart/form-data"
+	     if(multipartResolver.isMultipart(request)) {
+	    	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+	    	 //获取multipartRequest中所有的表单中name对应的名字
+	    	 Iterator<String> fileNames = multipartRequest.getFileNames();
+	    	 
+	    	 while(fileNames.hasNext()) {
+	    		 MultipartFile file = multipartRequest.getFile(fileNames.next().toString());
+	    		 if(file != null) {
+	    			 String path = "C:\\Users\\XianSky\\Desktop\\" + file.getOriginalFilename();
+	    			 file.transferTo(new File(path));
+	    		 }
+	    	 }
+	    	 
+	     }
+
+		return "success";
+	}
+	
+
+}
+```
+这几种方式除了第一种是直接通过IO字节流直接读写来处理外，后续两种都是通过@RequestParam参数将页面表单文件字节流封装到CommonsMultipartFile中，通过该类对象的transferto()方法来直接将文件字节流写入到本地服务器磁盘上，进行持久存储的。总的来说，使用springmvc上传文件还是挺容易的。

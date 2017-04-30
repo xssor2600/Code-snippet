@@ -95,3 +95,8 @@ List<User> getUsers(Map<String,Object> paramMap);
 
 ```
 方式挺多，都可以按照实际的需求进行搭配使用。<br>
+
+---
+参考: <br>
+[MyBatis传入多个参数的问题](http://www.cnblogs.com/mingyue1818/p/3714162.html)<br>
+[Mybatis传多个参数（三种解决方案）](http://www.2cto.com/database/201409/338155.html)

@@ -9,7 +9,6 @@
 		</dependency>
 
 ```
-<br>
 * 生成UUID唯一标识字符串<br>
 ```java
 	public String genericIdentity() {

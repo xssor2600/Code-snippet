@@ -103,7 +103,8 @@ public class GenerateCode {
 		String filePostfix="png";
 		File file = new File("d://test_QR_CODE."+filePostfix);
 		try {
-			test.encode(new String("hello 中国,I'm Hongten.welcome to my zone".getBytes(),"ISO-8859-1"), file,filePostfix, BarcodeFormat.QR_CODE, 430, 165, null);
+			test.encode(new String("hello 中国,I'm Hongten.welcome to my zone".getBytes(),"ISO-8859-1"), 
+				file,filePostfix, BarcodeFormat.QR_CODE, 430, 165, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

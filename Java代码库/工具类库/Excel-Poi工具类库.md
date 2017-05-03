@@ -395,3 +395,33 @@ public class ExportExcel {
 }  
 
 ```
+那么，有了工具类之后，如何在业务内操作使用呢，如下代码块:<br>
+```java
+	public void getExportStaffs(Map<String, Object> queryParams,HttpServletResponse response){
+		ExcelUtil<Staff> excelUtil = new ExcelUtil<Staff>(Staff.class);
+		List<Staff> oTempList ;
+		List<Staff> oList = new ArrayList<Staff>();
+		final int fetchSize = 1000;
+		try {
+			Integer total = this.getCountOfStaff(queryParams);
+			int loopSize = (total / fetchSize) + 1;
+			for(int i=0; i<loopSize; i++){
+				oTempList = new ArrayList<Staff>();
+				oTempList = getExportStaffs(queryParams,i,fetchSize);
+				oList.addAll(oTempList);
+			}
+			String fileName = "staffs.xlsx";  
+	        response.setHeader("Content-disposition", "attachment; filename="+
+			new String(fileName.getBytes("utf-8"), "ISO8859-1"));  
+	        response.setContentType("application/octet-stream");  
+			excelUtil.writeExcelFromList(oList, "staffs", response.getOutputStream());
+		} catch (Exception e) {
+			log.error("导出人员信息表失败>>:"+e);
+		}
+	}
+
+	public List<Staff> getExportStaffs(Map<String, Object> queryParams, int page,
+			int fetchSize) {
+		return staffDao.getExportStaffs(queryParams,page,fetchSize);
+	}
+```

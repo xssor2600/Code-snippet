@@ -49,7 +49,8 @@ public class GenerateCode {
 	 * @param height 图片高度
 	 * @param hints
 	 */
-	public void encode(String contents, File file,String filePostfix, BarcodeFormat format, int width, int height, Map<EncodeHintType, ?> hints) {
+	public void encode(String contents, File file,String filePostfix, BarcodeFormat format, 
+						int width, int height, Map<EncodeHintType, ?> hints) {
 		try {
 			BitMatrix bitMatrix = new MultiFormatWriter().encode(contents, format, width, height);
 			writeToFile(bitMatrix, filePostfix, file);

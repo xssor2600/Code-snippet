@@ -131,3 +131,85 @@
 		   return content;
 	   }
 ```
+封装Httpclient进行请求发送的工具类库。包括GET,POST等请求：<br>
+* 添加httpClient的maven依赖<br>
+```xml
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+```
+* 使用httpclient发送GET请求<br>
+```java
+	public static String requestGet(String url) throws IOException {
+		String content = "";
+		BufferedReader bufferedReader = null;
+		//创建httpclient
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		
+		try {
+
+			//创建httpget
+			HttpGet httpGet = new HttpGet(new URI(url));
+			//执行get方法
+			CloseableHttpResponse response = httpclient.execute(httpGet);
+			try {
+				
+				bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+				StringBuffer sb = new StringBuffer("");
+				String line = "";
+				String NL = System.getProperty("line.separator");
+				while ((line = bufferedReader.readLine()) != null) {
+					sb.append(line + NL);
+				}
+				content = sb.toString();
+			} catch (Exception e) {
+				log.error("获取get请求响应结果失败：", e);
+			}finally {
+				response.close();
+			}
+			
+		} catch (Exception e) {
+			log.error("get请求发送失败：", e);
+		}finally {
+			httpclient.close();
+			if(bufferedReader != null) {
+				bufferedReader.close();
+			}
+		}
+		log.info("content内容：---"+ content);
+		return content;
+	}
+```
+* 使用httpclient发送POST请求,以表单的形式<br>
+```java
+	public static String requestPost(String url, String formParam) throws IOException {
+		String content = "";
+		//创建httpclient
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		try {
+			//创建post请求
+			HttpPost httpPost = new HttpPost(new URI(url));
+			
+			httpPost.setEntity(new StringEntity(formParam, Charset.forName("UTF-8")));
+			
+			//执行post请求
+			CloseableHttpResponse response = httpClient.execute(httpPost);
+			try {
+				HttpEntity entity = response.getEntity();
+				content = EntityUtils.toString(entity, "UTF-8");
+			} catch (Exception e) {
+				log.error("获取post请求响应数据失败：", e);
+			}finally {
+				response.close();
+			}
+		} catch (Exception e) {
+			log.error("发送post请求失败：", e);
+		}finally {
+			httpClient.close();
+		}
+		log.info("获取的post数据："+content);
+		return content;
+	}
+```

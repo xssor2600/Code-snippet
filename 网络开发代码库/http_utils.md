@@ -213,3 +213,17 @@
 		return content;
 	}
 ```
+这个以表单形式，进行post提交的使用方式如下:<br>
+```java
+		Map<String, Object> formMap = new HashMap<String, Object>();
+		Map<String, Object> action_info = new HashMap<String, Object>();
+		Map<String, Object> scene = new HashMap<String, Object>();
+		scene.put("scene_id", articleId);
+		action_info.put("scene", scene);
+		formMap.put("expire_seconds", expire_seconds);
+		formMap.put("action_name", action_name);
+		formMap.put("action_info", action_info);
+
+		String formParam = JSON.toJSONString(formMap);
+		String responContent = HttpClient.requestPost(url, formParam);
+```

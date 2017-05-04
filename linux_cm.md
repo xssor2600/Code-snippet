@@ -7,7 +7,6 @@
   查看每个tcp连接状态的数量:`# netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}`<br>
   * 查看某个线程下的所有子线程系统资源占用信息:<br>
   该命令可以查看系统上的某个进行下的每个子进程占用的系统资源，就是使用**pidstat**命令:`# pidstat -p pid -t 1 n`,n代表显示次数。<br>
-<br>
 * **查看Linux系统配置：**<br>
    列举出一些用于查看Linux配置信息的命令集合<br>
   * 查看系统CPU配置详情命令:<br>

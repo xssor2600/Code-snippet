@@ -12,20 +12,15 @@
   * 查看系统CPU配置详情命令:<br>
   可以查看系统上与CPU相关的所有配置信息：`cat /proc/cpuinfo`。若是想要从中过滤或者抓取一些关键数据可以配合使用grep命令。<br>
   eg:若是想查看CPU大小:` cat /proc/cpuinfo |grep "model name" && cat /proc/cpuinfo |grep "physical id`,Linux下可以在/proc/cpuinfo中看到每个cpu的详细信息。但是对于双核的cpu，在cpuinfo中会看到两个cpu。常常会让人误以为是两个单核的cpu。<br>
-<br>
   * 查看系统的内存大小命令详情:<br>
   若是想要查看系统的内存详细信息，可以使用命令:`cat /proc/meminfo`。<br>
   若是仅仅想查看系统的总内存大小，则可以使用命令:`cat /proc/meminfo |grep MemTotal`。<br>
-<br>
   * 查看系统磁盘大小<br>
   查看系统磁盘大小信息，使用命令:`fdisk -l |grep Disk`,不过要是在root管理员权限下操作。<br>
-<br>
   * 查看内核/操作系统/CPU信息的linux系统信息命令:<br>
   使用命令：`uname -a`即可查看。<br>
-<br>
   * 查看操作系统版本<br>
   若是想直接查看操作系统版本，使用命令:`head -n 1 /etc/issue`。<br>
-<br>
   * 查看系统环境变量资源<br>
   Linux系统上会有很多环境变量，包括我们自己创建的变量。查看直接使用指令:`env`即可。<br>
 <br>

@@ -150,6 +150,10 @@ Regular expression : 此数据类型用于存储正则表达式
 ## 删除指定集合中的索引
 > db.users.dropIndex({"name":1})
 
-
 ```
-* 
+* Mongodb数据导出<br>
+  这里使用mongoexport命令，可以将指定条件的文档数据导入到指定目录下的文件中。<br>
+```shell
+## 导出test数据库中users集合中年龄大于30的文档数据，保存到/tmp/users.json文件中
+# mongoexport -d test -c users -q '{age : {$gt:30}}' -o /tmp/users.json
+```

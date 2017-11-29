@@ -81,9 +81,9 @@ inStream.read(b);
 改动如下： 判断流中可读的字节数是否为0。<br>
 ```
    int count = 0;  
-    while (count == 0) {  
-        count = inStream.available();  
-    }  
+    while (count == 0) {   //会死循环，注意控制
+        count = inStream.available();
+    }  
     byte[] b = new byte[count];  
     inStream.read(b); 
 ```

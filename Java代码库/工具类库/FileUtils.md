@@ -96,4 +96,5 @@ while (readCount < count) {
     readCount += inStream.read(b, readCount, count - readCount);  
 } 
 ```
-这样每次都能读取100个字节。参考: [java InputStream读取数据问题](http://cuisuqiang.iteye.com/blog/1434416)
+这样每次都能读取100个字节。参考: [java InputStream读取数据问题](http://cuisuqiang.iteye.com/blog/1434416)<br>
+若是想在网络文件传输中获取文件总大小，可以通过文件请求htttp请求头中`Content-Lengt`字段来获取值，可参考:[InputStream().available()方法的讲解](http://blog.csdn.net/lcfeng1982/article/details/7332723)
